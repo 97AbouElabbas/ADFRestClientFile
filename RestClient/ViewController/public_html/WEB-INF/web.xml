@@ -23,6 +23,10 @@
     <servlet-name>MapProxyServlet</servlet-name>
     <servlet-class>oracle.adf.view.faces.bi.webapp.MapProxyServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ImageServlet</servlet-name>
+    <servlet-class>com.allianz.api.servlets.ImageServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>/faces/*</url-pattern>
@@ -50,6 +54,10 @@
   <servlet-mapping>
     <servlet-name>resources</servlet-name>
     <url-pattern>/bi/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ImageServlet</servlet-name>
+    <url-pattern>/imageservlet</url-pattern>
   </servlet-mapping>
   <filter>
     <filter-name>trinidad</filter-name>

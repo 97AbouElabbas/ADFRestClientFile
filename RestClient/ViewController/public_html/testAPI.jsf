@@ -8,7 +8,6 @@
                     <af:gridCell width="100%" halign="stretch" valign="stretch" id="gc1">
                         <!-- Content -->
                         <af:panelHeader text="Upload file" id="ph1">
-                            <f:facet name="context"/>
                             <f:facet name="toolbar"/>
                             <f:facet name="menuBar"/>
                             <f:facet name="legend"/>
@@ -17,6 +16,7 @@
                                           valueChangeListener="#{SessionBean.inputFileValueChangeListener}"
                                           autoSubmit="true"/>
                         </af:panelHeader>
+                        <af:separator id="s2"/>
                         <af:panelHeader text="Download file" id="ph2">
                             <f:facet name="context"/>
                             <f:facet name="toolbar"/>
@@ -25,6 +25,18 @@
                             <f:facet name="info"/>
                             <af:inputText label="File name" id="it1" binding="#{SessionBean.fileName}"/>
                             <af:button text="Download" id="b1" action="#{SessionBean.download}"/>
+                        </af:panelHeader>
+                        <af:separator id="s1"/>
+                        <af:panelHeader text="Image" id="ph3">
+                            <f:facet name="context"/>
+                            <f:facet name="toolbar"/>
+                            <f:facet name="menuBar"/>
+                            <f:facet name="legend"/>
+                            <f:facet name="info"/>
+                            <af:image source="/imageservlet?id=#{SessionBean.path}" id="i1" partialTriggers="if3"
+                                      binding="#{SessionBean.image}" inlineStyle="width: 100px;     height: 100px;"/>
+                            <af:inputFile id="if3" valueChangeListener="#{SessionBean.imageInputValueChangeListener}"
+                                          autoSubmit="true"/>
                         </af:panelHeader>
                     </af:gridCell>
                 </af:gridRow>

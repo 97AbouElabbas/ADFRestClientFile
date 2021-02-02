@@ -1,6 +1,7 @@
 package com.allianz.api.beans;
 
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,6 +14,7 @@ import java.io.OutputStream;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
@@ -26,7 +28,45 @@ public class FileUploadClient {
         String parts[] = filename.split("\\.(?=[^\\.]+$)");
         return parts[1].toLowerCase();
     }
-    
+
+    public static void fileDownload(String url, OutputStream out) {
+        CloseableHttpClient httpclient = null;
+        try {
+            HttpGet get = new HttpGet(url);
+            httpclient = HttpClientBuilder.create().build();
+            HttpResponse response = httpclient.execute(get);
+            // Read the response HTML
+            if (response != null) {
+                HttpEntity responseEntity = response.getEntity();
+                if (responseEntity != null) {
+                    // Read the response string if required
+                    InputStream responseStream = responseEntity.getContent();
+                    if (responseStream != null) {
+                        BufferedInputStream in = new BufferedInputStream(responseStream);
+                        int b;
+                        byte[] buffer = new byte[10240];
+                        while ((b = in.read(buffer, 0, 10240)) != -1) {
+                            out.write(buffer, 0, b);
+                        }
+                    }
+                    responseStream.close();
+                }
+            }
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                httpclient.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static File uploadedFileToFileConverter(UploadedFile uf) {
         InputStream inputStream = null;
         OutputStream outputStream = null;
@@ -42,7 +82,7 @@ public class FileUploadClient {
                 outputStream.write(bytes, 0, read);
             }
         } catch (IOException e) {
-           //Do something with the Exception (logging, etc.)
+            //Do something with the Exception (logging, etc.)
         }
         return newFile;
     }
