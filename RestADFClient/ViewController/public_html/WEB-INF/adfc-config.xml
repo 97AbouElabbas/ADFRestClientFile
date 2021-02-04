@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="windows-1256" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <view id="testAPI">
+    <page>/testAPI.jsf</page>
+  </view>
+  <managed-bean id="__1">
+    <managed-bean-name>SessionBean</managed-bean-name>
+    <managed-bean-class>com.api.beans.SessionBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
+</adfc-config>
